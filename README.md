@@ -8,6 +8,7 @@ Sample Contact Tracing app built on Salesforce Platform as part of the Udemy cou
 
 ## My Additions
 
+- All classes
 - *(Will update as I complete challenges)*
 
 ## Original Setup Instructions
