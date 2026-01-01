@@ -68,4 +68,21 @@ public with sharing class CTPersonController {
         // Return the record if found, otherwise return null
         return people.isEmpty() ? null : people[0];
     }
+
+    public static Map<String, Integer> getHealthStatusCounts() {
+        Map<String, Integer> statusCounts = new Map<String, Integer>();
+        
+        // Aggregate query to count persons by health status
+        for (AggregateResult ar : [
+            SELECT Health_Status__c status, COUNT(Id)  total
+            FROM Person__c 
+            GROUP BY Health_Status__c
+        ]) {
+            String status = (String) ar.get('status');
+            Integer count = (Integer) ar.get('total');
+            statusCounts.put(status, count);
+        }
+        
+        return statusCounts;
+    }
 }

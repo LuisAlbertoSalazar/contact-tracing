@@ -48,4 +48,21 @@ public with sharing class CTLocationController {
         // Return the record if found, otherwise return null
         return locations.isEmpty() ? null : locations[0];
     }
+
+     public static Map<String, Integer> getStatusCounts() {
+        Map<String, Integer> statusCounts = new Map<String, Integer>();
+        
+        // Aggregate query to count locations by status
+        for (AggregateResult ar : [
+            SELECT Status__c status, COUNT(Id) total
+            FROM Location__c 
+            GROUP BY Status__c
+        ]) {
+            String status = (String) ar.get('status');
+            Integer count = (Integer) ar.get('total');
+            statusCounts.put(status, count);
+        }
+        
+        return statusCounts;
+    }
 }
